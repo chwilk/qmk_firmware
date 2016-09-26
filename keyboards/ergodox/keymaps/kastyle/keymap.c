@@ -1,5 +1,6 @@
 /* Setup to approximate a Kinesis Advantage with an eye to use in a
- * Mac/OSX environment */
+ * Mac/OSX environment 
+ * This version adds a hand swap feature to flip the keyboard */
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
@@ -38,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,          KC_Q,         KC_W,          KC_E,    KC_R,    KC_T,   TG(1),
     KC_LCTL,         KC_A,         KC_S,          KC_D,    KC_F,    KC_G,
     KC_LSFT,         CTL_T(KC_Z),  KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),
-    LT(SYMB,KC_GRV), KC_BSLS,      LALT(KC_LSFT), KC_LEFT, KC_RGHT,
+    KC_FN1, KC_BSLS,      LALT(KC_LSFT), KC_LEFT, KC_RGHT,
                                                                     KC_LGUI,         ALT_T(KC_ESC),
                                                                                      KC_HOME,
                                                                     KC_BSPC, KC_DEL, KC_END,
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TG(1),        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_BSLS,
                   KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_QUOT,
     MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
-                           KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           LT(SYMB,KC_GRV),
+                           KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           KC_FN1,
     ALT_T(KC_ESC),         KC_RGUI,
     KC_PGUP,
     KC_PGDN,      KC_ENT,  KC_SPC
@@ -139,10 +140,6 @@ KEYMAP(
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -159,6 +156,29 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 // swap-hands action needs a matrix to define the swap
+const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    /* Left hand, matrix positions */
+    {{5,7}, {4,7}, {3,7}, {2,7}, {1,7}, {0,7}},
+    {{5,8}, {4,8}, {3,8}, {2,8}, {1,8}, {0,8}},
+    {{5,9}, {4,9}, {3,9}, {2,9}, {1,9}, {0,9}},
+    {{5,10}, {4,10}, {3,10}, {2,10}, {1,10}, {0,10}},
+    {{5,11}, {4,11}, {3,11}, {2,11}, {1,11}, {0,11}},
+    {{5,12}, {4,12}, {3,12}, {2,12}, {1,12}, {0,12}},
+    {{5,13}, {4,13}, {3,13}, {2,13}, {1,13}, {0,13}},
+    /* Right hand, matrix positions */
+    {{5,0}, {4,0}, {3,0}, {2,0}, {1,0}, {0,0}},
+    {{5,1}, {4,1}, {3,1}, {2,1}, {1,1}, {0,1}},
+    {{5,2}, {4,2}, {3,2}, {2,2}, {1,2}, {0,2}},
+    {{5,3}, {4,3}, {3,3}, {2,3}, {1,3}, {0,3}},
+    {{5,4}, {4,4}, {3,4}, {2,4}, {1,4}, {0,4}},
+    {{5,5}, {4,5}, {3,5}, {2,5}, {1,5}, {0,5}},
+    {{5,6}, {4,6}, {3,6}, {2,6}, {1,6}, {0,6}}
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [1] = ACTION_SWAP_HANDS_TAP_KEY(KC_GRV)       // FN1 - Tap = Grave/Tilde - Hold Momentary swap hands
+};
+
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
