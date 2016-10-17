@@ -1,5 +1,6 @@
 /* Setup to approximate a Kinesis Advantage with an eye to use in a
- * Mac/OSX environment 
+ * Linux/Unix environment (e.g. GUI keys are not prominent, ctrl+alt
+ * is a much more likely key combo
  * This version adds a hand swap feature to flip the keyboard */
 #include "ergodox.h"
 #include "debug.h"
@@ -24,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |Grv/L1|   \  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  |Grv/L1|
  *   `----------------------------------'                                       `----------------------------------'
  *                                      ,---------------.       ,---------------.
- *                                      |  LGUI  |Al/Esc|       |Al/Esc|  RGUI  |
+ *                                      |  LCtrl |Al/Esc|       |Al/Esc|  RCtrl |
  *                               ,------|--------|------|       |------+--------+------.
  *                               |      |        | Home |       | PgUp |        |      |
  *                               |Backsp|   Del  |------|       |------| Enter  | Space|
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,         KC_A,         KC_S,          KC_D,    KC_F,    KC_G,
     KC_LSFT,         CTL_T(KC_Z),  KC_X,          KC_C,    KC_V,    KC_B,   ALL_T(KC_NO),
     KC_FN1, KC_BSLS,      LALT(KC_LSFT), KC_LEFT, KC_RGHT,
-                                                                    KC_LGUI,         ALT_T(KC_ESC),
+                                                                    KC_LCTL,         ALT_T(KC_ESC),
                                                                                      KC_HOME,
                                                                     KC_BSPC, KC_DEL, KC_END,
     // right hand
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), KC_QUOT,
     MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
                            KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           KC_FN1,
-    ALT_T(KC_ESC),         KC_RGUI,
+    ALT_T(KC_ESC),         KC_RCTL,
     KC_PGUP,
     KC_PGDN,      KC_ENT,  KC_SPC
 ),
